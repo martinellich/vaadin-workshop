@@ -14,7 +14,7 @@ INSERT INTO WORKSHOP (ID, TITLE, TOPIC, INSTRUCTOR, STATUS, EXECUTION_DATE)
 VALUES (5, 'Ansible Basics', 'OSSA', '	Jérôme Witt', 'OPEN', '2022-09-06');
 
 INSERT INTO WORKSHOP (ID, TITLE, TOPIC, INSTRUCTOR, STATUS, EXECUTION_DATE)
-VALUES (6, 'Mob Programming: Erlebe Kollaborations- und Kreativitätstechniken hautnah', 'METHSS', 'Danilo Biella, Barbara Dravec', 'OPEN', '2022-09-06');
+VALUES (6, 'Mob Programming: Erlebe Kollaborations- und Kreativitätstechniken hautnah', 'METSS', 'Danilo Biella, Barbara Dravec', 'OPEN', '2022-09-06');
 
 INSERT INTO WORKSHOP (ID, TITLE, TOPIC, INSTRUCTOR, STATUS, EXECUTION_DATE)
 VALUES (7, 'Functional Programming Idioms and Practices', 'SWOS', 'Venkat Subramaniam', 'FULL', '2022-09-06');
