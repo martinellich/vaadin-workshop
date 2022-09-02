@@ -1,6 +1,5 @@
-package ch.martinelli.wstage22.workshop.views;
+package ch.martinelli.wstage22.workshop.ui.views;
 
-import ch.martinelli.wstage22.workshop.ui.views.MainLayout;
 import com.github.mvysny.kaributesting.v10.MockVaadin;
 import com.github.mvysny.kaributesting.v10.Routes;
 import com.github.mvysny.kaributesting.v10.spring.MockSpringServlet;
