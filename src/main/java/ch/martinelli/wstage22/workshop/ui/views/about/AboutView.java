@@ -1,6 +1,6 @@
-package ch.martinelli.wstage22.vaadin.views.about;
+package ch.martinelli.wstage22.workshop.ui.views.about;
 
-import ch.martinelli.wstage22.vaadin.views.MainLayout;
+import ch.martinelli.wstage22.workshop.ui.views.MainLayout;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;

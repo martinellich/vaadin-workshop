@@ -1,4 +1,4 @@
-package ch.martinelli.wstage22.vaadin;
+package ch.martinelli.wstage22.workshop;
 
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;

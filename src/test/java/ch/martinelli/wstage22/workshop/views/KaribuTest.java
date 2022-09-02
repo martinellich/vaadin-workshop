@@ -1,5 +1,6 @@
-package ch.martinelli.wstage22.vaadin.views;
+package ch.martinelli.wstage22.workshop.views;
 
+import ch.martinelli.wstage22.workshop.ui.views.MainLayout;
 import com.github.mvysny.kaributesting.v10.MockVaadin;
 import com.github.mvysny.kaributesting.v10.Routes;
 import com.github.mvysny.kaributesting.v10.spring.MockSpringServlet;
@@ -13,7 +14,7 @@ import org.springframework.context.ApplicationContext;
 
 public class KaribuTest {
 
-    private static Routes routes = new Routes().autoDiscoverViews("ch.martinelli.wstage22.vaadin.views");
+    private static Routes routes = new Routes().autoDiscoverViews(MainLayout.class.getPackageName());
 
     @Autowired
     private ApplicationContext ctx;

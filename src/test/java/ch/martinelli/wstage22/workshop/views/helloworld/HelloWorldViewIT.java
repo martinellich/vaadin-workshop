@@ -1,4 +1,4 @@
-package ch.martinelli.wstage22.vaadin.views.helloworld;
+package ch.martinelli.wstage22.workshop.views.helloworld;
 
 import com.vaadin.flow.component.button.testbench.ButtonElement;
 import com.vaadin.flow.component.notification.testbench.NotificationElement;

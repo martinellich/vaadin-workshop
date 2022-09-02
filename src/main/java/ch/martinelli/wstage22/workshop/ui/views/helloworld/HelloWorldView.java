@@ -1,6 +1,6 @@
-package ch.martinelli.wstage22.vaadin.views.helloworld;
+package ch.martinelli.wstage22.workshop.ui.views.helloworld;
 
-import ch.martinelli.wstage22.vaadin.views.MainLayout;
+import ch.martinelli.wstage22.workshop.ui.views.MainLayout;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;

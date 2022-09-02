@@ -1,10 +1,10 @@
-package ch.martinelli.wstage22.vaadin.views;
+package ch.martinelli.wstage22.workshop.ui.views;
 
 
-import ch.martinelli.wstage22.vaadin.components.appnav.AppNav;
-import ch.martinelli.wstage22.vaadin.components.appnav.AppNavItem;
-import ch.martinelli.wstage22.vaadin.views.about.AboutView;
-import ch.martinelli.wstage22.vaadin.views.helloworld.HelloWorldView;
+import ch.martinelli.wstage22.workshop.ui.components.appnav.AppNav;
+import ch.martinelli.wstage22.workshop.ui.components.appnav.AppNavItem;
+import ch.martinelli.wstage22.workshop.ui.views.about.AboutView;
+import ch.martinelli.wstage22.workshop.ui.views.helloworld.HelloWorldView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
