@@ -13,8 +13,6 @@ import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
 public class Workshop {
 
     @Id
@@ -28,4 +26,52 @@ public class Workshop {
     @Enumerated(EnumType.STRING)
     private Status status = Status.OPEN;
     private LocalDate executionDate;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public ch.martinelli.wstage22.workshop.entity.Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(ch.martinelli.wstage22.workshop.entity.Status status) {
+        this.status = status;
+    }
+
+    public LocalDate getExecutionDate() {
+        return executionDate;
+    }
+
+    public void setExecutionDate(LocalDate executionDate) {
+        this.executionDate = executionDate;
+    }
 }

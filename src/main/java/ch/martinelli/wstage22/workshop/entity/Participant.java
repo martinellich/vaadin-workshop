@@ -11,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@Getter
-@Setter
 public class Participant {
 
     @Id
@@ -26,4 +24,44 @@ public class Participant {
 
     @ManyToOne
     private Workshop workshop;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public ch.martinelli.wstage22.workshop.entity.Workshop getWorkshop() {
+        return workshop;
+    }
+
+    public void setWorkshop(ch.martinelli.wstage22.workshop.entity.Workshop workshop) {
+        this.workshop = workshop;
+    }
 }
