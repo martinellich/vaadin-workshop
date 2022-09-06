@@ -1,8 +1,5 @@
 package ch.martinelli.wstage22.workshop.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,7 +18,9 @@ public class Workshop {
     private Integer id;
 
     private String title;
-    private String topic;
+
+    @Enumerated(EnumType.STRING)
+    private Topic topic;
     private String instructor;
     @Enumerated(EnumType.STRING)
     private Status status = Status.OPEN;
@@ -43,11 +42,11 @@ public class Workshop {
         this.title = title;
     }
 
-    public String getTopic() {
+    public Topic getTopic() {
         return topic;
     }
 
-    public void setTopic(String topic) {
+    public void setTopic(Topic topic) {
         this.topic = topic;
     }
 
