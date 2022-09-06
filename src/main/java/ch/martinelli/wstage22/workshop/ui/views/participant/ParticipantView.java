@@ -18,6 +18,9 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import org.springframework.data.domain.PageRequest;
 
+import javax.annotation.security.PermitAll;
+
+@PermitAll
 @PageTitle("Participants")
 @Route(layout = MainLayout.class)
 public class ParticipantView extends VerticalLayout {

@@ -1,6 +1,7 @@
 package ch.martinelli.wstage22.workshop.ui.views;
 
 
+import ch.martinelli.wstage22.workshop.security.SecurityContext;
 import ch.martinelli.wstage22.workshop.ui.components.appnav.AppNav;
 import ch.martinelli.wstage22.workshop.ui.components.appnav.AppNavItem;
 import ch.martinelli.wstage22.workshop.ui.views.about.AboutView;
@@ -12,6 +13,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
@@ -50,9 +52,22 @@ public class MainLayout extends AppLayout {
         appName.addClassNames("app-name");
 
         com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
-                createNavigation(), createFooter());
+                createNavigation(), createLogout(), createFooter());
         section.addClassNames("drawer-section");
         return section;
+    }
+
+    private Component createLogout() {
+        if (SecurityContext.getAuthentication().isPresent()) {
+            Div logout = new Div();
+            logout.getStyle().set("padding", "10px");
+            logout.getStyle().set("cursor", "pointer");
+            logout.add(("Logout (" + SecurityContext.getAuthentication().get().getName() + ")"));
+            logout.addClickListener(e -> SecurityContext.logout());
+            return logout;
+        } else {
+            return new Div();
+        }
     }
 
     private AppNav createNavigation() {

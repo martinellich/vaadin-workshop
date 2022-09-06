@@ -28,13 +28,13 @@ public class HelloWorldViewIT extends TestBenchTestCase {
         // Create a new browser instance
         setDriver(new ChromeDriver());
         // Open the application
-        getDriver().get("http://localhost:8080/");
+        getDriver().get("http://localhost:8080/hello");
     }
 
     @Test
     public void say_hello() {
-        $(TextFieldElement.class).first().setValue("Workshop-Tage 2022");
-        $(ButtonElement.class).first().click();
+        $(TextFieldElement.class).id("name").setValue("Workshop-Tage 2022");
+        $(ButtonElement.class).id("say-hello").click();
 
         NotificationElement notificationElement = $(NotificationElement.class).first();
 

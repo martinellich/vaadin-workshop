@@ -8,7 +8,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 
+@AnonymousAllowed
 @PageTitle("Hello World")
 @Route(value = "hello", layout = MainLayout.class)
 public class HelloWorldView extends HorizontalLayout {
@@ -18,7 +20,9 @@ public class HelloWorldView extends HorizontalLayout {
 
     public HelloWorldView() {
         name = new TextField("Your name");
+        name.setId("name");
         sayHello = new Button("Say hello");
+        sayHello.setId("say-hello");
         sayHello.addClickListener(e -> {
             Notification.show("Hello " + name.getValue());
         });
