@@ -65,11 +65,12 @@ public class ParticipantView extends VerticalLayout {
         TextField email = new TextField("Email");
         binder.forField(email).bind("email");
 
-        ComboBox<Workshop> workshop = new ComboBox<>("Workshop");
-        workshop.setItems(workshopRepository.findAll());
-        binder.forField(workshop).bind("workshop");
+        ComboBox<Workshop> cbWorkshop = new ComboBox<>("Workshop");
+        cbWorkshop.setItems(workshopRepository.findAll());
+        cbWorkshop.setItemLabelGenerator(Workshop::getTitle);
+        binder.forField(cbWorkshop).bind("workshop");
 
-        formLayout.add(firstName, lastName, email, workshop);
+        formLayout.add(firstName, lastName, email, cbWorkshop);
         add(formLayout);
 
         Button save = new Button("Save", e -> {

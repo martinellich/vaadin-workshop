@@ -82,6 +82,7 @@ public class WorkshopView extends VerticalLayout {
         Select<Topic> topic = new Select<>();
         topic.setLabel("Topic");
         topic.setItems(Topic.values());
+        topic.setItemLabelGenerator(Topic::getName);
         binder.forField(topic).bind("topic");
 
         TextField instructor = new TextField("Instructor");
