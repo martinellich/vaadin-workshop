@@ -1,41 +1,32 @@
-package ch.martinelli.wstage22.workshop.ui.views.workshop;
+package ch.martinelli.wstage22.workshop.ui.views.dashboard;
 
-import ch.martinelli.wstage22.workshop.entity.Status;
-import ch.martinelli.wstage22.workshop.entity.Topic;
 import ch.martinelli.wstage22.workshop.entity.Workshop;
 import ch.martinelli.wstage22.workshop.repository.WorkshopRepository;
 import ch.martinelli.wstage22.workshop.ui.views.MainLayout;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import org.springframework.data.domain.PageRequest;
 
-@PageTitle("Workshops")
+@PageTitle("Dashboard")
 @Route(layout = MainLayout.class)
-public class WorkshopView extends VerticalLayout {
+@RouteAlias(value = "", layout = MainLayout.class)
+public class DashboardView extends VerticalLayout {
 
     private final Grid<Workshop> grid = new Grid<>();
-    private final BeanValidationBinder<Workshop> binder = new BeanValidationBinder<>(Workshop.class);
     private final WorkshopRepository workshopRepository;
 
-    public WorkshopView(WorkshopRepository workshopRepository) {
+    public DashboardView(WorkshopRepository workshopRepository) {
         this.workshopRepository = workshopRepository;
-
-        setHeightFull();
 
         TextField filter = new TextField("Filter");
         filter.setValueChangeMode(ValueChangeMode.TIMEOUT);
-        filter.addValueChangeListener(e -> loadData(e.getValue()));
+        filter.addValueChangeListener(e-> loadData(e.getValue()))  ;
 
         add(filter);
 
@@ -66,47 +57,9 @@ public class WorkshopView extends VerticalLayout {
 
         loadData("");
 
-        grid.addSelectionListener(event -> {
-            event.getFirstSelectedItem().ifPresent(binder::setBean);
-        });
-
         add(grid);
 
-        binder.setBean(new Workshop());
-
-        FormLayout formLayout = new FormLayout();
-
-        TextField title = new TextField("Title");
-        binder.forField(title).bind("title");
-
-        Select<Topic> topic = new Select<>();
-        topic.setLabel("Topic");
-        topic.setItems(Topic.values());
-        binder.forField(topic).bind("topic");
-
-        TextField instructor = new TextField("Instructor");
-        binder.forField(instructor).bind("instructor");
-
-        Select<Status> status = new Select<>();
-        status.setLabel("Status");
-        status.setItems(Status.values());
-        binder.forField(status).bind("status");
-
-        DatePicker date = new DatePicker("Date");
-        binder.forField(date).bind("executionDate");
-
-        formLayout.add(title, topic, instructor, status, date);
-        add(formLayout);
-
-        Button save = new Button("Save", e -> {
-            workshopRepository.save(binder.getBean());
-            grid.getDataProvider().refreshAll();
-            grid.getSelectionModel().select(null);
-            binder.setBean(new Workshop());
-        });
-
-        add(new HorizontalLayout(save));
-
+        setHeightFull();
     }
 
     private void loadData(String title) {

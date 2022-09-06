@@ -1,14 +1,13 @@
 package ch.martinelli.wstage22.workshop.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Participant {
@@ -18,8 +17,11 @@ public class Participant {
     @SequenceGenerator(name = "participant_seq", sequenceName = "participant_seq")
     private Integer id;
 
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
+    @Email
     private String email;
 
     @ManyToOne

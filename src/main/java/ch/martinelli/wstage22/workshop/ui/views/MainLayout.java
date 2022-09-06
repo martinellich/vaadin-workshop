@@ -4,6 +4,7 @@ package ch.martinelli.wstage22.workshop.ui.views;
 import ch.martinelli.wstage22.workshop.ui.components.appnav.AppNav;
 import ch.martinelli.wstage22.workshop.ui.components.appnav.AppNavItem;
 import ch.martinelli.wstage22.workshop.ui.views.about.AboutView;
+import ch.martinelli.wstage22.workshop.ui.views.dashboard.DashboardView;
 import ch.martinelli.wstage22.workshop.ui.views.helloworld.HelloWorldView;
 import ch.martinelli.wstage22.workshop.ui.views.participant.ParticipantView;
 import ch.martinelli.wstage22.workshop.ui.views.workshop.WorkshopView;
@@ -60,6 +61,7 @@ public class MainLayout extends AppLayout {
         AppNav nav = new AppNav();
         nav.addClassNames("app-nav");
 
+        nav.addItem(new AppNavItem("Dashboard", DashboardView.class, "la la-home"));
         nav.addItem(new AppNavItem("Workshops", WorkshopView.class, "la la-chalkboard-teacher"));
         nav.addItem(new AppNavItem("Participants", ParticipantView.class, "la la-restroom"));
         nav.addItem(new AppNavItem("Hello World", HelloWorldView.class, "la la-globe"));
