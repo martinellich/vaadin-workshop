@@ -19,6 +19,7 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.router.PageTitle;
+import org.springframework.security.core.Authentication;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -59,10 +60,11 @@ public class MainLayout extends AppLayout {
 
     private Component createLogout() {
         if (SecurityContext.getAuthentication().isPresent()) {
+            Authentication authentication = SecurityContext.getAuthentication().get();
             Div logout = new Div();
             logout.getStyle().set("padding", "10px");
             logout.getStyle().set("cursor", "pointer");
-            logout.add(("Logout (" + SecurityContext.getAuthentication().get().getName() + ")"));
+            logout.add(("Logout (" + authentication.getName() + ")"));
             logout.addClickListener(e -> SecurityContext.logout());
             return logout;
         } else {
