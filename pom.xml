@@ -9,8 +9,8 @@
         <version>2.7.3</version>
     </parent>
 
-    <groupId>ch.martinelli.wstage22.vaadin</groupId>
-    <artifactId>wstage22-vaadin</artifactId>
+    <groupId>ch.martinelli.edu</groupId>
+    <artifactId>vaadin-workshop</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
