@@ -5,8 +5,6 @@ import ch.martinelli.vaadin.workshop.ui.components.appnav.AppNav;
 import ch.martinelli.vaadin.workshop.ui.components.appnav.AppNavItem;
 import ch.martinelli.vaadin.workshop.ui.views.about.AboutView;
 import ch.martinelli.vaadin.workshop.ui.views.helloworld.HelloWorldView;
-import ch.martinelli.vaadin.workshop.ui.views.participant.ParticipantView;
-import ch.martinelli.vaadin.workshop.ui.views.workshop.WorkshopView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -45,7 +43,7 @@ public class MainLayout extends AppLayout {
     }
 
     private Component createDrawerContent() {
-        H2 appName = new H2("wstage22-vaadin");
+        H2 appName = new H2("Vaadin Workshop");
         appName.addClassNames("app-name");
 
         com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
@@ -60,8 +58,6 @@ public class MainLayout extends AppLayout {
         AppNav nav = new AppNav();
         nav.addClassNames("app-nav");
 
-        nav.addItem(new AppNavItem("Workshops", WorkshopView.class, "la la-chalkboard-teacher"));
-        nav.addItem(new AppNavItem("Participants", ParticipantView.class, "la la-restroom"));
         nav.addItem(new AppNavItem("Hello World", HelloWorldView.class, "la la-globe"));
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
 
