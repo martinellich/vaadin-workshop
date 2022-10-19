@@ -17,11 +17,13 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import org.springframework.data.domain.PageRequest;
 
 @PageTitle("Workshops")
 @Route(layout = MainLayout.class)
+@RouteAlias(value = "", layout = MainLayout.class)
 public class WorkshopView extends VerticalLayout {
 
     private final Grid<Workshop> grid = new Grid<>();
