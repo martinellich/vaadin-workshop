@@ -28,7 +28,7 @@ public class HelloWorldViewIT extends TestBenchTestCase {
         // Create a new browser instance
         setDriver(new ChromeDriver());
         // Open the application
-        getDriver().get("http://localhost:8080/");
+        getDriver().get("http://localhost:8080/hello");
     }
 
     @Test
