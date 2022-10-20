@@ -1,8 +1,5 @@
 package ch.martinelli.vaadin.workshop.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 public enum Topic {
 
     SWOS("Softwareentwicklung mit Open Source"),
