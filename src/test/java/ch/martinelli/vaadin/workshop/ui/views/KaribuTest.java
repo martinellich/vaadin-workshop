@@ -9,8 +9,10 @@ import kotlin.jvm.functions.Function0;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
+@SpringBootTest
 public class KaribuTest {
 
     private static Routes routes = new Routes().autoDiscoverViews(MainLayout.class.getPackageName());

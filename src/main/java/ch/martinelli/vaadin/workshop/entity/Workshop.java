@@ -1,12 +1,7 @@
 package ch.martinelli.vaadin.workshop.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
