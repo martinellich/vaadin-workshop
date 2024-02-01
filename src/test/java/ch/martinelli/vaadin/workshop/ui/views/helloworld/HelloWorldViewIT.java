@@ -3,10 +3,10 @@ package ch.martinelli.vaadin.workshop.ui.views.helloworld;
 import com.vaadin.flow.component.button.testbench.ButtonElement;
 import com.vaadin.flow.component.notification.testbench.NotificationElement;
 import com.vaadin.flow.component.textfield.testbench.TextFieldElement;
+import com.vaadin.testbench.BrowserTest;
 import com.vaadin.testbench.BrowserTestBase;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class HelloWorldViewIT extends BrowserTestBase {
 
@@ -15,7 +15,7 @@ public class HelloWorldViewIT extends BrowserTestBase {
         getDriver().get("http://localhost:8080/");
     }
 
-    @Test
+    @BrowserTest
     public void say_hello() {
         $(TextFieldElement.class).first().setValue("Peter Muster");
         $(ButtonElement.class).first().click();
