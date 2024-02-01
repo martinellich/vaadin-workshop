@@ -1,8 +1,6 @@
 package ch.martinelli.vaadin.workshop.ui.views;
 
 
-import ch.martinelli.vaadin.workshop.ui.components.appnav.AppNav;
-import ch.martinelli.vaadin.workshop.ui.components.appnav.AppNavItem;
 import ch.martinelli.vaadin.workshop.ui.views.about.AboutView;
 import ch.martinelli.vaadin.workshop.ui.views.helloworld.HelloWorldView;
 import com.vaadin.flow.component.Component;
@@ -13,6 +11,9 @@ import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.sidenav.SideNav;
+import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.PageTitle;
 
 /**
@@ -52,14 +53,11 @@ public class MainLayout extends AppLayout {
         return section;
     }
 
-    private AppNav createNavigation() {
-        // AppNav is not yet an official component.
-        // For documentation, visit https://github.com/vaadin/vcf-nav#readme
-        AppNav nav = new AppNav();
-        nav.addClassNames("app-nav");
+    private SideNav createNavigation() {
+        SideNav nav = new SideNav();
 
-        nav.addItem(new AppNavItem("Hello World", HelloWorldView.class, "la la-globe"));
-        nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
+        nav.addItem(new SideNavItem("Hello World", HelloWorldView.class, VaadinIcon.GLOBE.create()));
+        nav.addItem(new SideNavItem("About", AboutView.class, VaadinIcon.FILE.create()));
 
         return nav;
     }
