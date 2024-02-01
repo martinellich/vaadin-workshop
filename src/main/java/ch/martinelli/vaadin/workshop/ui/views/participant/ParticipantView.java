@@ -16,9 +16,8 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.data.domain.PageRequest;
-
-import javax.annotation.security.PermitAll;
 
 @PermitAll
 @PageTitle("Participants")
