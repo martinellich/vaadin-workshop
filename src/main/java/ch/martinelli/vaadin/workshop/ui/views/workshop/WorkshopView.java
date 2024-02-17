@@ -1,8 +1,8 @@
 package ch.martinelli.vaadin.workshop.ui.views.workshop;
 
-import ch.martinelli.vaadin.workshop.ui.views.MainLayout;
 import ch.martinelli.vaadin.workshop.entity.Workshop;
 import ch.martinelli.vaadin.workshop.repository.WorkshopRepository;
+import ch.martinelli.vaadin.workshop.ui.views.MainLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
