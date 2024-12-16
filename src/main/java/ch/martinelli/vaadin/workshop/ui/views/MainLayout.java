@@ -16,6 +16,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.spring.security.AuthenticationContext;
 import org.springframework.security.core.Authentication;
 
 /**
@@ -23,9 +24,11 @@ import org.springframework.security.core.Authentication;
  */
 public class MainLayout extends AppLayout {
 
+    private final AuthenticationContext authenticationContext;
     private H1 viewTitle;
 
-    public MainLayout() {
+    public MainLayout(AuthenticationContext authenticationContext) {
+        this.authenticationContext = authenticationContext;
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         addToDrawer(createDrawerContent());
@@ -50,23 +53,9 @@ public class MainLayout extends AppLayout {
         appName.addClassNames("app-name");
 
         com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
-                createNavigation(), createLogout(), createFooter());
+                createNavigation(), createFooter());
         section.addClassNames("drawer-section");
         return section;
-    }
-
-    private Component createLogout() {
-        if (SecurityContext.getAuthentication().isPresent()) {
-            Authentication authentication = SecurityContext.getAuthentication().get();
-            Div logout = new Div();
-            logout.getStyle().set("padding", "10px");
-            logout.getStyle().set("cursor", "pointer");
-            logout.add(("Logout (" + authentication.getName() + ")"));
-            logout.addClickListener(e -> SecurityContext.logout());
-            return logout;
-        } else {
-            return new Div();
-        }
     }
 
     private SideNav createNavigation() {
@@ -84,6 +73,16 @@ public class MainLayout extends AppLayout {
     private Footer createFooter() {
         Footer layout = new Footer();
         layout.addClassNames("app-nav-footer");
+
+        if (SecurityContext.getAuthentication().isPresent()) {
+            Authentication authentication = SecurityContext.getAuthentication().get();
+            Div logout = new Div();
+            logout.getStyle().set("padding", "10px");
+            logout.getStyle().set("cursor", "pointer");
+            logout.add(("Logout (" + authentication.getName() + ")"));
+            logout.addClickListener(e -> authenticationContext.logout());
+            layout.add(logout);
+        }
 
         return layout;
     }
