@@ -67,17 +67,19 @@ public class ParticipantView extends VerticalLayout {
 
         ComboBox<Workshop> cbWorkshop = new ComboBox<>("Workshop");
         cbWorkshop.setItems(workshopRepository.findAll());
-        cbWorkshop.setItemLabelGenerator(Workshop::getTitle);
+        cbWorkshop.setItemLabelGenerator(Workshop::getInstructor);
         binder.forField(cbWorkshop).bind("workshop");
 
         formLayout.add(firstName, lastName, email, cbWorkshop);
         add(formLayout);
 
         Button save = new Button("Save", e -> {
-            participantRepository.save(binder.getBean());
-            grid.getDataProvider().refreshAll();
-            grid.getSelectionModel().select(null);
-            binder.setBean(new Participant());
+            if (binder.validate().isOk()) {
+                participantRepository.save(binder.getBean());
+                grid.getDataProvider().refreshAll();
+                grid.getSelectionModel().select(null);
+                binder.setBean(new Participant());
+            }
         });
 
         add(new HorizontalLayout(save));

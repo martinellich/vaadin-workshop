@@ -16,6 +16,7 @@ public class Participant {
     private String firstName;
     @NotBlank
     private String lastName;
+    @NotBlank
     @Email
     private String email;
 

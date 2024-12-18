@@ -1,10 +1,10 @@
 package ch.martinelli.vaadin.workshop.ui.views.workshop;
 
-import ch.martinelli.vaadin.workshop.ui.views.MainLayout;
 import ch.martinelli.vaadin.workshop.entity.Status;
 import ch.martinelli.vaadin.workshop.entity.Topic;
 import ch.martinelli.vaadin.workshop.entity.Workshop;
 import ch.martinelli.vaadin.workshop.repository.WorkshopRepository;
+import ch.martinelli.vaadin.workshop.ui.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -102,10 +102,12 @@ public class WorkshopView extends VerticalLayout {
         add(formLayout);
 
         Button save = new Button("Save", e -> {
-            workshopRepository.save(binder.getBean());
-            grid.getDataProvider().refreshAll();
-            grid.getSelectionModel().select(null);
-            binder.setBean(new Workshop());
+            if (binder.validate().isOk()) {
+                workshopRepository.save(binder.getBean());
+                grid.getDataProvider().refreshAll();
+                grid.getSelectionModel().select(null);
+                binder.setBean(new Workshop());
+            }
         });
 
         add(new HorizontalLayout(save));

@@ -15,8 +15,10 @@ class HelloWorldTest extends KaribuTest {
     void say_hello() {
         UI.getCurrent().navigate(HelloWorldView.class);
 
-        LocatorJ._get(TextField.class, spec -> spec.withLabel("Your name")).setValue("Peter Muster");
-        LocatorJ._get(Button.class, spec -> spec.withText("Say hello")).click();
+        TextField input = LocatorJ._get(TextField.class, spec -> spec.withLabel("Your name"));
+        LocatorJ._setValue(input, "Peter Muster");
+        Button button = LocatorJ._get(Button.class, spec -> spec.withText("Say hello"));
+        LocatorJ._click(button);
 
         LocatorJ._assert(Notification.class, 1);
 
