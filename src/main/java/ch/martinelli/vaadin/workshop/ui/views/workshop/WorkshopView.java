@@ -15,16 +15,14 @@ import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import org.springframework.data.domain.PageRequest;
 
 @PageTitle("Workshops")
 @Route(layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
-public class WorkshopView extends VerticalLayout {
+public class WorkshopView extends VerticalLayout implements AfterNavigationObserver {
 
     private final Grid<Workshop> grid = new Grid<>();
     private final BeanValidationBinder<Workshop> binder = new BeanValidationBinder<>(Workshop.class);
@@ -38,8 +36,6 @@ public class WorkshopView extends VerticalLayout {
         createFilter();
         createGrid();
         crateForm();
-
-        loadData("");
     }
 
     private void createFilter() {
@@ -129,5 +125,10 @@ public class WorkshopView extends VerticalLayout {
                         PageRequest.of(query.getPage(), query.getPageSize(),
                                 VaadinSpringDataHelpers.toSpringDataSort(query)), title)
                 .stream());
+    }
+
+    @Override
+    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
+        loadData("");
     }
 }

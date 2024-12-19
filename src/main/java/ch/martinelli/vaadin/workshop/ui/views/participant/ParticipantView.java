@@ -13,6 +13,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.router.AfterNavigationEvent;
+import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
@@ -20,7 +22,7 @@ import org.springframework.data.domain.PageRequest;
 
 @PageTitle("Participants")
 @Route(layout = MainLayout.class)
-public class ParticipantView extends VerticalLayout {
+public class ParticipantView extends VerticalLayout implements AfterNavigationObserver {
 
     private final ParticipantRepository participantRepository;
     private final WorkshopRepository workshopRepository;
@@ -50,11 +52,6 @@ public class ParticipantView extends VerticalLayout {
                 .setHeader("Workshop");
 
         grid.setMultiSort(true);
-
-        grid.setItems(query -> participantRepository.findAll(
-                        PageRequest.of(query.getPage(), query.getPageSize(),
-                                VaadinSpringDataHelpers.toSpringDataSort(query)))
-                .stream());
 
         grid.addSelectionListener(event -> {
             event.getFirstSelectedItem().ifPresent(binder::setBean);
@@ -96,5 +93,14 @@ public class ParticipantView extends VerticalLayout {
         });
 
         add(new HorizontalLayout(save));
+    }
+
+    @Override
+    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
+        grid.setItems(query -> participantRepository.findAll(
+                        PageRequest.of(query.getPage(), query.getPageSize(),
+                                VaadinSpringDataHelpers.toSpringDataSort(query)))
+                .stream());
+
     }
 }
