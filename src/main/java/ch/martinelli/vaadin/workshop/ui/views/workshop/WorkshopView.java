@@ -35,11 +35,23 @@ public class WorkshopView extends VerticalLayout {
 
         setHeightFull();
 
+        createFilter();
+        createGrid();
+        crateForm();
+
+        loadData("");
+    }
+
+    private void createFilter() {
         TextField filter = new TextField("Filter");
         filter.setValueChangeMode(ValueChangeMode.TIMEOUT);
         filter.addValueChangeListener(e -> loadData(e.getValue()));
 
         add(filter);
+    }
+
+    private void createGrid() {
+        grid.setHeightFull();
 
         grid.addColumn(Workshop::getTitle)
                 .setHeader("Title")
@@ -64,16 +76,15 @@ public class WorkshopView extends VerticalLayout {
 
         grid.setMultiSort(true);
         grid.setColumnReorderingAllowed(true);
-        grid.setHeightFull();
-
-        loadData("");
 
         grid.addSelectionListener(event -> {
             event.getFirstSelectedItem().ifPresent(binder::setBean);
         });
 
         add(grid);
+    }
 
+    private void crateForm() {
         binder.setBean(new Workshop());
 
         FormLayout formLayout = new FormLayout();
@@ -111,7 +122,6 @@ public class WorkshopView extends VerticalLayout {
         });
 
         add(new HorizontalLayout(save));
-
     }
 
     private void loadData(String title) {

@@ -22,11 +22,21 @@ import org.springframework.data.domain.PageRequest;
 @Route(layout = MainLayout.class)
 public class ParticipantView extends VerticalLayout {
 
+    private final ParticipantRepository participantRepository;
+    private final WorkshopRepository workshopRepository;
     private final Grid<Participant> grid = new Grid<>();
 
     private final BeanValidationBinder<Participant> binder = new BeanValidationBinder<>(Participant.class);
 
     public ParticipantView(ParticipantRepository participantRepository, WorkshopRepository workshopRepository) {
+        this.participantRepository = participantRepository;
+        this.workshopRepository = workshopRepository;
+
+        createGrid();
+        createForm();
+    }
+
+    private void createGrid() {
         grid.addColumn(Participant::getFirstName)
                 .setHeader("First Name")
                 .setSortable(true).setSortProperty("firstName");
@@ -51,7 +61,9 @@ public class ParticipantView extends VerticalLayout {
         });
 
         add(grid);
+    }
 
+    private void createForm() {
         binder.setBean(new Participant());
 
         FormLayout formLayout = new FormLayout();
@@ -71,6 +83,7 @@ public class ParticipantView extends VerticalLayout {
         binder.forField(cbWorkshop).bind("workshop");
 
         formLayout.add(firstName, lastName, email, cbWorkshop);
+
         add(formLayout);
 
         Button save = new Button("Save", e -> {
