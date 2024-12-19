@@ -7,16 +7,14 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import org.springframework.data.domain.PageRequest;
 
 @PageTitle("Workshops")
 @Route(layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
-public class WorkshopView extends VerticalLayout {
+public class WorkshopView extends VerticalLayout implements AfterNavigationObserver {
 
     private final Grid<Workshop> grid = new Grid<>();
     private final WorkshopRepository workshopRepository;
@@ -24,12 +22,21 @@ public class WorkshopView extends VerticalLayout {
     public WorkshopView(WorkshopRepository workshopRepository) {
         this.workshopRepository = workshopRepository;
 
+        setHeightFull();
+
+        createFilter();
+        createGrid();
+    }
+
+    private void createFilter() {
         TextField filter = new TextField("Filter");
         filter.setValueChangeMode(ValueChangeMode.TIMEOUT);
         filter.addValueChangeListener(e-> loadData(e.getValue()))  ;
 
         add(filter);
+    }
 
+    private void createGrid() {
         grid.addColumn(Workshop::getTitle)
                 .setHeader("Title")
                 .setSortable(true).setSortProperty("title")
@@ -55,11 +62,7 @@ public class WorkshopView extends VerticalLayout {
         grid.setColumnReorderingAllowed(true);
         grid.setHeightFull();
 
-        loadData("");
-
         add(grid);
-
-        setHeightFull();
     }
 
     private void loadData(String title) {
@@ -68,4 +71,10 @@ public class WorkshopView extends VerticalLayout {
                                 VaadinSpringDataHelpers.toSpringDataSort(query)), title)
                 .stream());
     }
+
+    @Override
+    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
+        loadData("");
+    }
+
 }
