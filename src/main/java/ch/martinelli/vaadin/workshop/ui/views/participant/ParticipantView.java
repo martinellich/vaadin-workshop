@@ -5,7 +5,6 @@ import ch.martinelli.vaadin.workshop.repository.ParticipantRepository;
 import ch.martinelli.vaadin.workshop.ui.views.MainLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
@@ -19,8 +18,6 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
 
     private final ParticipantRepository participantRepository;
     private final Grid<Participant> grid = new Grid<>();
-
-    private final BeanValidationBinder<Participant> binder = new BeanValidationBinder<>(Participant.class);
 
     public ParticipantView(ParticipantRepository participantRepository) {
         this.participantRepository = participantRepository;
@@ -42,10 +39,6 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
                 .setHeader("Workshop");
 
         grid.setMultiSort(true);
-
-        grid.addSelectionListener(event -> {
-            event.getFirstSelectedItem().ifPresent(binder::setBean);
-        });
 
         add(grid);
     }
