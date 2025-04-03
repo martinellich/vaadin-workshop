@@ -1,17 +1,10 @@
 package ch.martinelli.vaadin.workshop.ui.views.participant;
 
 import ch.martinelli.vaadin.workshop.entity.Participant;
-import ch.martinelli.vaadin.workshop.entity.Workshop;
 import ch.martinelli.vaadin.workshop.repository.ParticipantRepository;
-import ch.martinelli.vaadin.workshop.repository.WorkshopRepository;
 import ch.martinelli.vaadin.workshop.ui.views.MainLayout;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
