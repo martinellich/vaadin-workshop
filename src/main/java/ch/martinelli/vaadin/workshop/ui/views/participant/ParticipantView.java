@@ -25,17 +25,14 @@ import org.springframework.data.domain.PageRequest;
 public class ParticipantView extends VerticalLayout implements AfterNavigationObserver {
 
     private final ParticipantRepository participantRepository;
-    private final WorkshopRepository workshopRepository;
     private final Grid<Participant> grid = new Grid<>();
 
     private final BeanValidationBinder<Participant> binder = new BeanValidationBinder<>(Participant.class);
 
-    public ParticipantView(ParticipantRepository participantRepository, WorkshopRepository workshopRepository) {
+    public ParticipantView(ParticipantRepository participantRepository) {
         this.participantRepository = participantRepository;
-        this.workshopRepository = workshopRepository;
 
         createGrid();
-        createForm();
     }
 
     private void createGrid() {
@@ -58,41 +55,6 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
         });
 
         add(grid);
-    }
-
-    private void createForm() {
-        binder.setBean(new Participant());
-
-        FormLayout formLayout = new FormLayout();
-
-        TextField firstName = new TextField("First Name");
-        binder.forField(firstName).bind("firstName");
-
-        TextField lastName = new TextField("Last Name");
-        binder.forField(lastName).bind("lastName");
-
-        TextField email = new TextField("Email");
-        binder.forField(email).bind("email");
-
-        ComboBox<Workshop> cbWorkshop = new ComboBox<>("Workshop");
-        cbWorkshop.setItems(workshopRepository.findAll());
-        cbWorkshop.setItemLabelGenerator(Workshop::getInstructor);
-        binder.forField(cbWorkshop).bind("workshop");
-
-        formLayout.add(firstName, lastName, email, cbWorkshop);
-
-        add(formLayout);
-
-        Button save = new Button("Save", e -> {
-            if (binder.validate().isOk()) {
-                participantRepository.save(binder.getBean());
-                grid.getDataProvider().refreshAll();
-                grid.getSelectionModel().select(null);
-                binder.setBean(new Participant());
-            }
-        });
-
-        add(new HorizontalLayout(save));
     }
 
     @Override
