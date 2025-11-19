@@ -4,6 +4,7 @@ import ch.martinelli.vaadin.workshop.entity.Workshop;
 import ch.martinelli.vaadin.workshop.repository.WorkshopRepository;
 import ch.martinelli.vaadin.workshop.ui.views.MainLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -53,8 +54,17 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
                 .setHeader("Date")
                 .setSortable(true).setSortProperty("executionDate")
                 .setAutoWidth(true);
-        grid.addColumn(Workshop::getStatus)
+        grid.addComponentColumn(workshop -> {
+                    Span badge = new Span(workshop.getStatus().name());
+                    switch (workshop.getStatus()) {
+                        case OPEN -> badge.getElement().getThemeList().add("badge");
+                        case FULL -> badge.getElement().getThemeList().add("badge error");
+                        case CANCELED -> badge.getElement().getThemeList().add("badge warning");
+                    }
+                    return badge;
+                })
                 .setHeader("Status")
+                .setKey("status")
                 .setSortable(true).setSortProperty("status")
                 .setAutoWidth(true);
 
