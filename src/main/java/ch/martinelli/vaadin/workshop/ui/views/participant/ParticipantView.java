@@ -9,8 +9,6 @@ import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
-import org.springframework.data.domain.PageRequest;
 
 @PageTitle("Participants")
 @Route(layout = MainLayout.class)
@@ -45,9 +43,6 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
 
     @Override
     public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
-        grid.setItems(query -> participantRepository.findAll(
-                        PageRequest.of(query.getPage(), query.getPageSize(),
-                                VaadinSpringDataHelpers.toSpringDataSort(query)))
-                .stream());
+        grid.setItemsPageable(pageable -> participantRepository.findAll(pageable).getContent());
     }
 }

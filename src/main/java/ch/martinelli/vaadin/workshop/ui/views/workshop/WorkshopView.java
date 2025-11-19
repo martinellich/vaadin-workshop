@@ -9,8 +9,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
-import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
-import org.springframework.data.domain.PageRequest;
 
 @PageTitle("Workshops")
 @Route(layout = MainLayout.class)
@@ -32,7 +30,7 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
     private void createFilter() {
         TextField filter = new TextField("Filter");
         filter.setValueChangeMode(ValueChangeMode.TIMEOUT);
-        filter.addValueChangeListener(e-> loadData(e.getValue()))  ;
+        filter.addValueChangeListener(e -> loadData(e.getValue()));
 
         add(filter);
     }
@@ -55,13 +53,13 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
                 .setSortable(true).setSortProperty("executionDate")
                 .setAutoWidth(true);
         grid.addComponentColumn(workshop -> {
-                    Span badge = new Span(workshop.getStatus().name());
+                    Span pending = new Span(workshop.getStatus().name());
                     switch (workshop.getStatus()) {
-                        case OPEN -> badge.getElement().getThemeList().add("badge");
-                        case FULL -> badge.getElement().getThemeList().add("badge error");
-                        case CANCELED -> badge.getElement().getThemeList().add("badge warning");
+                        case OPEN -> pending.getElement().getThemeList().add("badge");
+                        case FULL -> pending.getElement().getThemeList().add("badge error");
+                        case CANCELED -> pending.getElement().getThemeList().add("badge warning");
                     }
-                    return badge;
+                    return pending;
                 })
                 .setHeader("Status")
                 .setKey("status")
@@ -76,10 +74,7 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
     }
 
     private void loadData(String title) {
-        grid.setItems(query -> workshopRepository.findAllByTitleContainsIgnoreCase(
-                        PageRequest.of(query.getPage(), query.getPageSize(),
-                                VaadinSpringDataHelpers.toSpringDataSort(query)), title)
-                .stream());
+        grid.setItemsPageable(pageable -> workshopRepository.findAllByTitleContainsIgnoreCase(pageable, title).getContent());
     }
 
     @Override
