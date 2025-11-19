@@ -16,8 +16,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
-import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
-import org.springframework.data.domain.PageRequest;
 
 @PageTitle("Workshops")
 @Route(layout = MainLayout.class)
@@ -121,10 +119,7 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
     }
 
     private void loadData(String title) {
-        grid.setItems(query -> workshopRepository.findAllByTitleContainsIgnoreCase(
-                        PageRequest.of(query.getPage(), query.getPageSize(),
-                                VaadinSpringDataHelpers.toSpringDataSort(query)), title)
-                .stream());
+        grid.setItemsPageable(pageable -> workshopRepository.findAllByTitleContainsIgnoreCase(pageable, title));
     }
 
     @Override
