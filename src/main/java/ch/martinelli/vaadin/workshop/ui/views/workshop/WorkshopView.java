@@ -14,7 +14,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
 
@@ -24,7 +24,7 @@ import com.vaadin.flow.router.*;
 public class WorkshopView extends VerticalLayout implements AfterNavigationObserver {
 
     private final Grid<Workshop> grid = new Grid<>();
-    private final BeanValidationBinder<Workshop> binder = new BeanValidationBinder<>(Workshop.class);
+    private final Binder<Workshop> binder = new Binder<>(Workshop.class);
     private final WorkshopRepository workshopRepository;
     private Workshop workshop;
 
@@ -35,7 +35,7 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
 
         createFilter();
         createGrid();
-        crateForm();
+        createForm();
     }
 
     private void createFilter() {
@@ -89,31 +89,41 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
         add(grid);
     }
 
-    private void crateForm() {
+    private void createForm() {
         this.workshop = new Workshop();
         binder.readBean(this.workshop);
 
         FormLayout formLayout = new FormLayout();
 
         TextField title = new TextField("Title");
-        binder.forField(title).bind("title");
+        binder.forField(title)
+                .asRequired()
+                .bind(Workshop::getTitle, Workshop::setTitle);
 
         Select<Topic> topic = new Select<>();
         topic.setLabel("Topic");
         topic.setItems(Topic.values());
         topic.setItemLabelGenerator(Topic::getName);
-        binder.forField(topic).bind("topic");
+        binder.forField(topic)
+                .asRequired()
+                .bind(Workshop::getTopic, Workshop::setTopic);
 
         TextField instructor = new TextField("Instructor");
-        binder.forField(instructor).bind("instructor");
+        binder.forField(instructor)
+                .asRequired()
+                .bind(Workshop::getInstructor, Workshop::setInstructor);
 
         Select<Status> status = new Select<>();
         status.setLabel("Status");
         status.setItems(Status.values());
-        binder.forField(status).bind("status");
+        binder.forField(status)
+                .asRequired()
+                .bind(Workshop::getStatus, Workshop::setStatus);
 
         DatePicker date = new DatePicker("Date");
-        binder.forField(date).bind("executionDate");
+        binder.forField(date)
+                .asRequired()
+                .bind(Workshop::getExecutionDate, Workshop::setExecutionDate);
 
         formLayout.add(title, topic, instructor, status, date);
         add(formLayout);
