@@ -1,6 +1,7 @@
 package ch.martinelli.vaadin.workshop.ui.views;
 
 import ch.martinelli.vaadin.workshop.ui.views.dashboard.DashboardView;
+import ch.martinelli.vaadin.workshop.ui.views.layout.FunWithLayoutView;
 import ch.martinelli.vaadin.workshop.ui.views.participant.ParticipantView;
 import ch.martinelli.vaadin.workshop.ui.views.workshop.WorkshopView;
 import com.vaadin.flow.component.Component;
@@ -59,6 +60,7 @@ public class MainLayout extends AppLayout {
         nav.addItem(new SideNavItem("Dashboard", DashboardView.class, VaadinIcon.GLOBE.create()));
         nav.addItem(new SideNavItem("Workshops", WorkshopView.class, VaadinIcon.WORKPLACE.create()));
         nav.addItem(new SideNavItem("Participants", ParticipantView.class, VaadinIcon.USER.create()));
+        nav.addItem(new SideNavItem("Fun with Layout", FunWithLayoutView.class, VaadinIcon.FUNCTION.create()));
 
         return nav;
     }
