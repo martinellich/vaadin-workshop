@@ -1,8 +1,8 @@
 package ch.martinelli.vaadin.workshop.ui.views;
 
-
-import ch.martinelli.vaadin.workshop.ui.views.about.AboutView;
-import ch.martinelli.vaadin.workshop.ui.views.helloworld.HelloWorldView;
+import ch.martinelli.vaadin.workshop.ui.views.dashboard.DashboardView;
+import ch.martinelli.vaadin.workshop.ui.views.participant.ParticipantView;
+import ch.martinelli.vaadin.workshop.ui.views.workshop.WorkshopView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -56,8 +56,9 @@ public class MainLayout extends AppLayout {
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
 
-        nav.addItem(new SideNavItem("Hello World", HelloWorldView.class, VaadinIcon.GLOBE.create()));
-        nav.addItem(new SideNavItem("About", AboutView.class, VaadinIcon.FILE.create()));
+        nav.addItem(new SideNavItem("Dashboard", DashboardView.class, VaadinIcon.GLOBE.create()));
+        nav.addItem(new SideNavItem("Workshops", WorkshopView.class, VaadinIcon.WORKPLACE.create()));
+        nav.addItem(new SideNavItem("Participants", ParticipantView.class, VaadinIcon.USER.create()));
 
         return nav;
     }
