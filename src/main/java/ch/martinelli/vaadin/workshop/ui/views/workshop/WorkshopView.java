@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
@@ -25,6 +26,7 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
     private final Grid<Workshop> grid = new Grid<>();
     private final BeanValidationBinder<Workshop> binder = new BeanValidationBinder<>(Workshop.class);
     private final WorkshopRepository workshopRepository;
+    private Workshop workshop;
 
     public WorkshopView(WorkshopRepository workshopRepository) {
         this.workshopRepository = workshopRepository;
@@ -51,7 +53,7 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
                 .setHeader("Title")
                 .setSortable(true).setSortProperty("title")
                 .setWidth("300px");
-        grid.addColumn(workshop -> workshop.getTopic().getName())
+        grid.addColumn(w -> w.getTopic().getName())
                 .setHeader("Topic")
                 .setSortable(true).setSortProperty("topic")
                 .setAutoWidth(true);
@@ -63,7 +65,15 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
                 .setHeader("Date")
                 .setSortable(true).setSortProperty("executionDate")
                 .setAutoWidth(true);
-        grid.addColumn(Workshop::getStatus)
+        grid.addComponentColumn(w -> {
+                    Span badge = new Span(w.getStatus().name());
+                    switch (w.getStatus()) {
+                        case OPEN -> badge.getElement().getThemeList().add("badge");
+                        case FULL -> badge.getElement().getThemeList().add("badge error");
+                        case CANCELED -> badge.getElement().getThemeList().add("badge warning");
+                    }
+                    return badge;
+                })
                 .setHeader("Status")
                 .setSortable(true).setSortProperty("status")
                 .setAutoWidth(true);
@@ -71,15 +81,17 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
         grid.setMultiSort(true);
         grid.setColumnReorderingAllowed(true);
 
-        grid.addSelectionListener(event -> {
-            event.getFirstSelectedItem().ifPresent(binder::setBean);
-        });
+        grid.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(w -> {
+            this.workshop = w;
+            binder.readBean(this.workshop);
+        }));
 
         add(grid);
     }
 
     private void crateForm() {
-        binder.setBean(new Workshop());
+        this.workshop = new Workshop();
+        binder.readBean(this.workshop);
 
         FormLayout formLayout = new FormLayout();
 
@@ -107,11 +119,14 @@ public class WorkshopView extends VerticalLayout implements AfterNavigationObser
         add(formLayout);
 
         Button save = new Button("Save", e -> {
-            if (binder.validate().isOk()) {
-                workshopRepository.save(binder.getBean());
+            if (binder.writeBeanIfValid(this.workshop)) {
+                workshopRepository.save(this.workshop);
+
                 grid.getDataProvider().refreshAll();
                 grid.getSelectionModel().select(null);
-                binder.setBean(new Workshop());
+
+                this.workshop = new Workshop();
+                binder.readBean(this.workshop);
             }
         });
 

@@ -27,6 +27,7 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
     private final Grid<Participant> grid = new Grid<>();
 
     private final BeanValidationBinder<Participant> binder = new BeanValidationBinder<>(Participant.class);
+    private Participant participant;
 
     public ParticipantView(ParticipantRepository participantRepository, WorkshopRepository workshopRepository) {
         this.participantRepository = participantRepository;
@@ -46,20 +47,22 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
         grid.addColumn(Participant::getEmail)
                 .setHeader("E-Mail")
                 .setSortable(true).setSortProperty("email");
-        grid.addColumn(participant -> participant.getWorkshop() != null ? participant.getWorkshop().getTitle() : "")
+        grid.addColumn(p -> p.getWorkshop() != null ? p.getWorkshop().getTitle() : "")
                 .setHeader("Workshop");
 
         grid.setMultiSort(true);
 
-        grid.addSelectionListener(event -> {
-            event.getFirstSelectedItem().ifPresent(binder::setBean);
-        });
+        grid.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(p -> {
+            this.participant = p;
+            binder.readBean(this.participant);
+        }));
 
         add(grid);
     }
 
     private void createForm() {
-        binder.setBean(new Participant());
+        this.participant = new Participant();
+        binder.readBean(this.participant);
 
         FormLayout formLayout = new FormLayout();
 
@@ -73,7 +76,7 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
         binder.forField(email).bind("email");
 
         ComboBox<Workshop> cbWorkshop = new ComboBox<>("Workshop");
-        cbWorkshop.setItems(workshopRepository.findAll());
+        cbWorkshop.setItemsPageable(workshopRepository::findAllByTitleContainsIgnoreCase);
         cbWorkshop.setItemLabelGenerator(Workshop::getTitle);
         binder.forField(cbWorkshop).bind("workshop");
 
@@ -82,11 +85,14 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
         add(formLayout);
 
         Button save = new Button("Save", e -> {
-            if (binder.validate().isOk()) {
-                participantRepository.save(binder.getBean());
+            if (binder.writeBeanIfValid(this.participant)) {
+                participantRepository.save(this.participant);
+
                 grid.getDataProvider().refreshAll();
                 grid.getSelectionModel().select(null);
-                binder.setBean(new Participant());
+
+                this.participant = new Participant();
+                binder.readBean(this.participant);
             }
         });
 
