@@ -12,7 +12,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
@@ -26,7 +26,7 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
     private final WorkshopRepository workshopRepository;
     private final Grid<Participant> grid = new Grid<>();
 
-    private final BeanValidationBinder<Participant> binder = new BeanValidationBinder<>(Participant.class);
+    private final Binder<Participant> binder = new Binder<>(Participant.class);
     private Participant participant;
 
     public ParticipantView(ParticipantRepository participantRepository, WorkshopRepository workshopRepository) {
@@ -67,18 +67,26 @@ public class ParticipantView extends VerticalLayout implements AfterNavigationOb
         FormLayout formLayout = new FormLayout();
 
         TextField firstName = new TextField("First Name");
-        binder.forField(firstName).bind("firstName");
+        binder.forField(firstName)
+                .asRequired()
+                .bind(Participant::getFirstName, Participant::setFirstName);
 
         TextField lastName = new TextField("Last Name");
-        binder.forField(lastName).bind("lastName");
+        binder.forField(lastName)
+                .asRequired()
+                .bind(Participant::getLastName, Participant::setLastName);
 
         TextField email = new TextField("Email");
-        binder.forField(email).bind("email");
+        binder.forField(email)
+                .asRequired()
+                .bind(Participant::getEmail, Participant::setEmail);
 
         ComboBox<Workshop> cbWorkshop = new ComboBox<>("Workshop");
         cbWorkshop.setItemsPageable(workshopRepository::findAllByTitleContainsIgnoreCase);
         cbWorkshop.setItemLabelGenerator(Workshop::getTitle);
-        binder.forField(cbWorkshop).bind("workshop");
+        binder.forField(cbWorkshop)
+                .asRequired()
+                .bind(Participant::getWorkshop, Participant::setWorkshop);
 
         formLayout.add(firstName, lastName, email, cbWorkshop);
 
