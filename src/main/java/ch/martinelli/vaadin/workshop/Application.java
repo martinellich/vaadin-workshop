@@ -7,6 +7,8 @@ import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * The entry point of the Spring Boot application.
@@ -16,6 +18,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  */
 @SpringBootApplication
 @Push
+@EnableAsync
+@EnableScheduling
 @Theme(value = "vaadin-workshop")
 @PWA(name = "Vaadin Workshop", shortName = "vaadin-workshop", offlineResources = {})
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
