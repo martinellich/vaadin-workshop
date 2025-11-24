@@ -49,7 +49,7 @@ class WorkshopViewTest extends KaribuTest {
 
         Assertions.assertThat(GridKt._size(grid)).isEqualTo(1);
 
-        Workshop workshopAfterSave = GridKt._get(grid, 0);
-        Assertions.assertThat(workshopAfterSave.getTitle()).isEqualTo("Java Full-Stack Entwicklung mit Vaadin");
+        Workshop workshopAfterFilter = GridKt._get(grid, 0);
+        Assertions.assertThat(workshopAfterFilter.getTitle()).isEqualTo("Java Full-Stack Entwicklung mit Vaadin");
     }
 }
