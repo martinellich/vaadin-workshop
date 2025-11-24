@@ -15,7 +15,7 @@ import org.springframework.context.ApplicationContext;
 @SpringBootTest
 public class KaribuTest {
 
-    private static Routes routes = new Routes().autoDiscoverViews(MainLayout.class.getPackageName());
+    private static Routes routes = new Routes().autoDiscoverViews("ch.martinelli.vaadin.workshop.ui");
 
     @Autowired
     private ApplicationContext ctx;
