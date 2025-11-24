@@ -5,6 +5,7 @@ import ch.martinelli.vaadin.workshop.entity.Topic;
 import ch.martinelli.vaadin.workshop.entity.Workshop;
 import ch.martinelli.vaadin.workshop.repository.WorkshopRepository;
 import ch.martinelli.vaadin.workshop.ui.views.MainLayout;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -20,6 +21,9 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.data.domain.PageRequest;
+
+import java.text.DateFormatSymbols;
+import java.util.Arrays;
 
 @PermitAll
 @PageTitle("Workshops")
@@ -42,11 +46,11 @@ public class WorkshopView extends VerticalLayout {
         add(filter);
 
         grid.addColumn(Workshop::getTitle)
-                .setHeader("Title")
+                .setHeader(getTranslation("title"))
                 .setSortable(true).setSortProperty("title")
                 .setWidth("300px");
         grid.addColumn(workshop -> workshop.getTopic().getName())
-                .setHeader("Topic")
+                .setHeader(getTranslation("topic"))
                 .setSortable(true).setSortProperty("topic")
                 .setAutoWidth(true);
         grid.addColumn(Workshop::getInstructor)
@@ -96,6 +100,13 @@ public class WorkshopView extends VerticalLayout {
         binder.forField(status).bind("status");
 
         DatePicker date = new DatePicker("Date");
+        var symbols = new DateFormatSymbols(UI.getCurrent().getLocale());
+        var datePickerI18n = new DatePicker.DatePickerI18n();
+        datePickerI18n.setMonthNames(Arrays.asList(symbols.getMonths()));
+        datePickerI18n.setFirstDayOfWeek(1);
+        datePickerI18n.setWeekdays(Arrays.stream(symbols.getWeekdays()).filter(s -> !s.isEmpty()).toList());
+        datePickerI18n.setWeekdaysShort(Arrays.stream(symbols.getShortWeekdays()).filter(s -> !s.isEmpty()).toList());
+        date.setI18n(datePickerI18n);
         binder.forField(date).bind("executionDate");
 
         formLayout.add(title, topic, instructor, status, date);
