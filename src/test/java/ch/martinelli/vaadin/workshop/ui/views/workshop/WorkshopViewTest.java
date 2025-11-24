@@ -48,5 +48,8 @@ class WorkshopViewTest extends KaribuTest {
         filter.setValue("Vaadin");
 
         Assertions.assertThat(GridKt._size(grid)).isEqualTo(1);
+
+        Workshop workshopAfterSave = GridKt._get(grid, 0);
+        Assertions.assertThat(workshopAfterSave.getTitle()).isEqualTo("Java Full-Stack Entwicklung mit Vaadin");
     }
 }
