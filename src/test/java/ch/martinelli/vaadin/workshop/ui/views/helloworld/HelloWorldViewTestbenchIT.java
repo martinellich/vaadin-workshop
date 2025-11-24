@@ -8,7 +8,7 @@ import com.vaadin.testbench.BrowserTestBase;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
-public class HelloWorldViewIT extends BrowserTestBase {
+public class HelloWorldViewTestbenchIT extends BrowserTestBase {
 
     @BeforeEach
     public void setup() {
