@@ -42,6 +42,7 @@ class WorkshopViewIT extends PlaywrightIT {
     @Test
     void filter() {
         page.navigate("http://localhost:%d".formatted(localServerPort));
+        var mopo = new Mopo(page);
 
         GridPw gridPw = new GridPw(page);
         // Caution! This test runs in the browser and depending on the view port not all rows are rendered.
@@ -50,6 +51,8 @@ class WorkshopViewIT extends PlaywrightIT {
         Locator inputField = page.locator("vaadin-text-field > input").first();
         inputField.fill("Vaadin");
         inputField.blur();
+
+        mopo.waitForConnectionToSettle();
 
         Assertions.assertThat(gridPw.getRenderedRowCount()).isEqualTo(1);
 
