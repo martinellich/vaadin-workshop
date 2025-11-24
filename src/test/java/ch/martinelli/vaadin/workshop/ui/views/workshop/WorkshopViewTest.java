@@ -11,10 +11,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class WorkshopViewTest extends KaribuTest {
 
     @Test
     void select_row_and_change_title() {
+        login("user", List.of("USER"));
         UI.getCurrent().navigate(WorkshopView.class);
 
         Grid<Workshop> grid = LocatorJ._get(Grid.class);
@@ -39,6 +42,7 @@ class WorkshopViewTest extends KaribuTest {
 
     @Test
     void filter() {
+        login("user", List.of("USER"));
         UI.getCurrent().navigate(WorkshopView.class);
 
         Grid<Workshop> grid = LocatorJ._get(Grid.class);
