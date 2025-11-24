@@ -1,6 +1,7 @@
 package ch.martinelli.vaadin.workshop;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * and some desktop browsers.
  */
 @SpringBootApplication
+@Push
 @Theme(value = "vaadin-workshop")
 @PWA(name = "Vaadin Workshop", shortName = "vaadin-workshop", offlineResources = {})
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
