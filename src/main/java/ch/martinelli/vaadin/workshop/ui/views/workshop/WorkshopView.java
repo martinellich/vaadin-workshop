@@ -20,6 +20,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import jakarta.annotation.security.PermitAll;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.PageRequest;
 
 import java.text.DateFormatSymbols;
@@ -34,7 +35,7 @@ public class WorkshopView extends VerticalLayout {
     private final BeanValidationBinder<Workshop> binder = new BeanValidationBinder<>(Workshop.class);
     private final WorkshopRepository workshopRepository;
 
-    public WorkshopView(WorkshopRepository workshopRepository) {
+    public WorkshopView(WorkshopRepository workshopRepository, ApplicationEventPublisher applicationEventPublisher) {
         this.workshopRepository = workshopRepository;
 
         setHeightFull();
@@ -117,10 +118,11 @@ public class WorkshopView extends VerticalLayout {
             grid.getDataProvider().refreshAll();
             grid.getSelectionModel().select(null);
             binder.setBean(new Workshop());
+
+            applicationEventPublisher.publishEvent(new WorkshopAdded(this));
         });
 
         add(new HorizontalLayout(save));
-
     }
 
     private void loadData(String title) {
