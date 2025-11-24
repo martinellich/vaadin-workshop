@@ -23,7 +23,7 @@ import org.springframework.data.domain.PageRequest;
 
 @PermitAll
 @PageTitle("Workshops")
-@Route(layout = MainLayout.class)
+@Route(value = "workshops", layout = MainLayout.class)
 public class WorkshopView extends VerticalLayout {
 
     private final Grid<Workshop> grid = new Grid<>();

@@ -21,7 +21,7 @@ import org.springframework.data.domain.PageRequest;
 
 @PermitAll
 @PageTitle("Participants")
-@Route(layout = MainLayout.class)
+@Route(value = "participants", layout = MainLayout.class)
 public class ParticipantView extends VerticalLayout {
 
     private final Grid<Participant> grid = new Grid<>();

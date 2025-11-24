@@ -3,7 +3,6 @@ package ch.martinelli.vaadin.workshop.ui.views.workshop;
 import ch.martinelli.vaadin.workshop.ui.views.PlaywrightIT;
 import com.microsoft.playwright.Locator;
 import in.virit.mopo.GridPw;
-import in.virit.mopo.Mopo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +10,9 @@ class WorkshopViewIT extends PlaywrightIT {
 
     @Test
     void select_row_and_change_title() {
-        page.navigate("http://localhost:%d".formatted(localServerPort));
-        var mopo = new Mopo(page);
+        login("user");
+
+        page.navigate("http://localhost:%d/workshops".formatted(localServerPort));
 
         GridPw gridPw = new GridPw(page);
         // Caution! This test runs in the browser and depending on the view port not all rows are rendered.
@@ -41,8 +41,9 @@ class WorkshopViewIT extends PlaywrightIT {
 
     @Test
     void filter() {
-        page.navigate("http://localhost:%d".formatted(localServerPort));
-        var mopo = new Mopo(page);
+        login("user");
+
+        page.navigate("http://localhost:%d/workshops".formatted(localServerPort));
 
         GridPw gridPw = new GridPw(page);
         // Caution! This test runs in the browser and depending on the view port not all rows are rendered.
