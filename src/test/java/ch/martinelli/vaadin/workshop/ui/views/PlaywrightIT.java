@@ -28,7 +28,7 @@ public abstract class PlaywrightIT {
 		BrowserType browserType = playwright.chromium();
 		BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions();
 		// set to false if you want to see the browser during development
-		launchOptions.headless = true;
+		launchOptions.headless = false;
 		browser = browserType.launch(launchOptions);
 	}
 
