@@ -8,10 +8,10 @@ import com.vaadin.testbench.BrowserTestBase;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
-public class HelloWorldViewTestbenchIT extends BrowserTestBase {
+class HelloWorldViewTestbenchIT extends BrowserTestBase {
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         getDriver().get("http://localhost:8080/hello");
     }
 
