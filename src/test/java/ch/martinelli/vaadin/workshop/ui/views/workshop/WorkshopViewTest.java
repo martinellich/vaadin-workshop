@@ -36,4 +36,17 @@ class WorkshopViewTest extends KaribuTest {
         Workshop workshopAfterSave = GridKt._get(grid, 0);
         Assertions.assertThat(workshopAfterSave.getTitle()).isEqualTo("Test");
     }
+
+    @Test
+    void filter() {
+        UI.getCurrent().navigate(WorkshopView.class);
+
+        Grid<Workshop> grid = LocatorJ._get(Grid.class);
+        Assertions.assertThat(GridKt._size(grid)).isEqualTo(12);
+
+        TextField filter = LocatorJ._get(TextField.class, spec -> spec.withLabel("Filter"));
+        filter.setValue("Vaadin");
+
+        Assertions.assertThat(GridKt._size(grid)).isEqualTo(1);
+    }
 }
